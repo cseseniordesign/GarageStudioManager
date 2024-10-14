@@ -164,7 +164,7 @@ post '/events/:event_id/sign_up/?' do
 		redirect back
 	else
 		# flash a message that this works
-		flash(:success, "Event Marked", "This free event has been marked on your hoempage.")
+		flash(:success, "Event Marked", "This free event has been marked on your homepage.")
 		redirect back
 	end
 end
