@@ -358,9 +358,10 @@ post '/new_members/sign_up/:event_id/?' do
 
 		Emailer.mail(params[:email], "#{CONFIG['app']['title']} - #{event.title}", body)
 
-		# flash a message that this works
-		flash(:success, "You're signed up!", "Thanks for signing up! Don't forget, this is at #{event.start_time.in_time_zone.strftime('%A, %B %d at %l:%M %P')}. Check your email for more information about the event and where to park.")
 		if SS_ID == 1
+			# Flash a message for successful sign ups
+			flash(:success, "You're signed up!", "Thanks for signing up! Don't forget, this is at #{event.start_time.in_time_zone.strftime('%A, %B %d at %l:%M %P')}. Check your email for more information about the event and where to park.")
+
 			if event.event_type_id == hrc_training_id
 				@name = params[:first_name] + " " + params[:last_name]
 				@email = params[:email]
@@ -379,6 +380,7 @@ post '/new_members/sign_up/:event_id/?' do
 				redirect '/new_members/'
 			end
 		else
+			flash(:success, "You're signed up!", "Thanks for signing up. Check your email for more information about the event.")
 			redirect '/new_members/'
 		end
 	end
