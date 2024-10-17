@@ -1,0 +1,28 @@
+{
+  "before_install": [
+    "gem install bundler -v 2.4.22",
+    "bundle install",
+    "sudo apt-get -y install unzip",
+    # "sudo apt-get -y install ruby-rspec-core",
+    "touch config/server.json",
+    "sh config_setup.sh -u $DB_USER -p $DB_PASS -c $CAPTCHA_SITE_KEY -s $CAPTCHA_SECRET_KEY",
+    "cd $TRAVIS_BUILD_DIR/public",
+    "curl -o ./wdn-compressed https://wdn.unl.edu/downloads/wdn.zip",
+    "unzip -o ./wdn-compressed -d wdn",
+    "mv ./wdn/wdn/templates_5.3/ ./wdn/",
+    "rm -rf ./wdn/wdn",
+    "nvm install 16"
+  ],
+  "branches": {
+    "only": [
+      "master"
+    ]
+  },
+  "language": "ruby",
+  "rvm": "2.6.10",
+  "script": [
+    "cd $TRAVIS_BUILD_DIR/",
+    "rubocop -c .rubocop.yml",
+    # "rspec -I . unit_tests_spec.rb",
+  ]
+}
