@@ -1,0 +1,1 @@
+ALTER TABLE `resources` ADD COLUMN `can_checkout` tinyint(1) DEFAULT 0;
