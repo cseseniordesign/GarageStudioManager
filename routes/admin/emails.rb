@@ -146,7 +146,7 @@ post '/admin/email/send/?' do
 	end
 	if params.checked?('send_to_all_with_tool_authorization')
 		params[:tool_authorization].each do |id|
-			users = all_users.select { |user| user.authorized_resource_ids.include?(id) }
+			users = all_users.select { |user| user.authorized_resource_ids.include?(id.to_i) }
 			unless users.nil?
 				users.each do |user|
 					users_to_send_to << user
@@ -202,6 +202,7 @@ post '/admin/email/send/?' do
 		Emailer.mail('', params[:subject], body, bcc, attachments)
 		output = "#{users_to_send_to.count} users"
 	else
+		# FIXME: When Specific Tool Authorization(s) is selected, flash displays
 		flash :error, 'No Users Selected', 'This email was not sent to any users'
 		redirect back
 	end
