@@ -202,7 +202,6 @@ post '/admin/email/send/?' do
 		Emailer.mail('', params[:subject], body, bcc, attachments)
 		output = "#{users_to_send_to.count} users"
 	else
-		# FIXME: When Specific Tool Authorization(s) is selected, flash displays
 		flash :error, 'No Users Selected', 'This email was not sent to any users'
 		redirect back
 	end
