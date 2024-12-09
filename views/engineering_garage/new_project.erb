@@ -1,0 +1,40 @@
+<h1 class="dcf-txt-h3" id="New_Project">Project Creation Form</h1>
+
+<div class="dcf-grid dcf-col-gap-vw">
+<form id="new-project-form" action="" method="POST" enctype="multipart/form-data" class="dcf-form dcf-col-100% dcf-col-50%-start@sm">
+    <fieldset>
+        <legend>Project Details</legend>
+
+        <div class="dcf-form-group ">
+            <label for="nuid">NUID <span class="dcf-txt-xs">Read only</span></label>
+            <input class="dcf-w-100%" type="text" id="nuid" name="nuid" value ="<%= user.user_nuid %>"    readonly />
+        </div>
+
+        <div class="dcf-form-group">
+            <label for="title">Title <small class="dcf-required">Required</small></label>
+            <input class="dcf-w-100%" type="text" id="title" name="title" />
+        </div>
+
+        <div class="dcf-form-group">
+            <label for="description">Description</label>
+            <input class="dcf-w-100%" type="text" id="description" name="description" />
+        </div>
+
+        <div class="dcf-form-group">
+            <label for="bin_id">Bin ID <small class="dcf-required">Required</small></label>
+            <input class="dcf-w-100%" type="text" id="bin_id" name="bin_id" />
+        </div>
+        <button class="dcf-mt-3 dcf-btn dcf-btn-primary" type="submit">Create</button>
+    </fieldset>
+</form>
+<form id="edit-teammates-form" class="dcf-form dcf-col-100% dcf-col-50%-end@sm">
+    <fieldset>
+        <legend>Project Teammates</legend>
+
+        <div class="dcf-overflow-x-auto" tabindex="0">
+            <%# <p>TODO: Decide if this should be hidden until project is actually created</p> %>
+            <p>Edit an existing project to add teammates.</p>
+        </div>
+    </fieldset>
+</div>
+      

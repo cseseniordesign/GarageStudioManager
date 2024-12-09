@@ -1,0 +1,51 @@
+<h1 class="dcf-txt-h3" id="Edit_Teammates">Edit Teammates</h1>
+
+<div class="dcf-grid dcf-col-gap-vw">
+<form id="edit-teammates-form" class="dcf-form dcf-col-100% dcf-col-50%-start@sm">
+    <fieldset>
+        <legend>Project Teammates</legend>
+
+        <div class="dcf-overflow-x-auto" tabindex="0">
+            <% if teammates.count > 0 %>
+            <table class="dcf-table dcf-table-striped dcf-w-100% dcf-table-responsive dcf-mb-6" aria-describedby="teammate-list-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Date Added</th>
+                        <%# <th scope="col">Actions</th> %>
+                    </tr>
+                </thead>
+                <tbody>
+                <% teammates.each do | teammate | %>
+                    <% user = User.find_by(id: teammate.teammate_id) %>
+                    <tr>
+                        <td><%= user.full_name %></td>
+                        <td><%= user.email %></td>
+                        <td><%= teammate.created_on.strftime('%m/%d/%Y') %></td>
+                        <%# <td class="table-actions"> %>
+                            <%# <form class="dcf-form delete-form delete-user" action="/admin/users/<%= user.id %><%#/delete/" method="POST"> %>
+                                <%# <button type="submit" class="dcf-mt-1 dcf-btn dcf-btn-primary">Delete</button> %>
+                            <%# </form> %>
+                        <%# </td> %>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+            <% else %>
+                <p>No teammates found.</p>
+            <% end %>
+        </div>
+        <div>
+            <%# FIXME: Submitting NUID updates query but doesn't seem to run POST method %>
+            <form class="dcf-form dcf-w-25%" id="find-nuid" action="/checkout/project/<%= project_id %>/edit/teammates/" method="POST" enctype="application/x-www-form-urlencoded">
+                <label for="nuid-input">Add a Teammate by NUID</label>
+                <div class="dcf-input-group">
+                    <input id="nuid-input" name="nuid">
+                    <button class="dcf-btn dcf-btn-primary" type="submit">Add Teammate</button>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+</form>
+</div>
