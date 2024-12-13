@@ -6,7 +6,7 @@ before_install:
   - sh config_setup.sh -u $DB_USER -p $DB_PASS -c $CAPTCHA_SITE_KEY -s $CAPTCHA_SECRET_KEY
   - cd $TRAVIS_BUILD_DIR/public
   - curl -o ./wdn-compressed https://wdn.unl.edu/downloads/wdn.zip
-  - ls ./
+  - ls ./wdn-compressed
   - unzip -o ./wdn-compressed -d wdn
   - mv ./wdn/wdn/templates_5.3/ ./wdn/
   - rm -rf ./wdn/wdn
