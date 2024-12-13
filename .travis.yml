@@ -5,8 +5,7 @@ before_install:
   - touch config/server.json
   - sh config_setup.sh -u $DB_USER -p $DB_PASS -c $CAPTCHA_SITE_KEY -s $CAPTCHA_SECRET_KEY
   - cd $TRAVIS_BUILD_DIR/public
-  - curl -o ./wdn-compressed https://wdn.unl.edu/downloads/wdn.zip
-  - cat ./wdn-compressed
+  - curl -o ./wdn-compressed https://wdn.unl.edu/sites/unl.edu.university-communication.web-developer-network/files/downloads/wdn.zip
   - unzip -o ./wdn-compressed -d wdn
   - mv ./wdn/wdn/templates_5.3/ ./wdn/
   - rm -rf ./wdn/wdn
