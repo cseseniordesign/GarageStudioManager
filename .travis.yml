@@ -22,6 +22,7 @@ before_install:
 branches:
   only:
     - development
+    - Release-3
 
 language: ruby
 rvm:
