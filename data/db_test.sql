@@ -3769,6 +3769,34 @@ CREATE TABLE `projects` (
   FOREIGN KEY (owner_user_id) REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
+CREATE TABLE `project_teammates` (
+  `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `teammate_id` int(11) DEFAULT NULL,
+  `project_id` int(11) DEFAULT NULL,
+  `created_by` int(11) DEFAULT NULL,
+  `created_on` datetime DEFAULT CURRENT_TIMESTAMP,
+  `is_owner` tinyint(1) DEFAULT 0,
+  FOREIGN KEY (teammate_id) REFERENCES users(id) ON DELETE CASCADE,
+  FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
+  FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+CREATE TABLE `project_logs` (
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+    `checkout_user_id` int(11),
+    `project_id` int(11),
+    `project_title` varchar(255),
+    `checked_date` datetime DEFAULT CURRENT_TIMESTAMP,
+    `is_checking_in` boolean
+)ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+CREATE TABLE `tool_logs` (
+    `id` int(11) PRIMARY KEY AUTO_INCREMENT,
+    `checkout_user_id` int(11),
+    `tool_id` int(11),
+    `tool_name` varchar(255),
+    `checked_date` datetime DEFAULT CURRENT_TIMESTAMP,
+    `is_checking_in` boolean
+)ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
