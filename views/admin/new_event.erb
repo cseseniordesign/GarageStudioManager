@@ -136,7 +136,7 @@
                         <label for="tools">Use Shift or Ctrl/Cmd to select multiple tools</label>
                         <select id="tools" name="tools[]" class="use-select2" multiple size="8" >
                             <% tools.each do |tool| %>
-                                <% if !tool.INOP %>
+                                <% if SS_ID == 8 || !tool.INOP %>
                                     <% if event.id.nil? %>
                                         <option <%= 'selected="selected"' if !preset_event.nil? and preset_event.get_resource_reservations_ids.include?(tool.id)  %> value="<%=tool.id%>"><%= "#{tool.category_name} - #{tool.name} - #{tool.model}" %></option>
                                     <% else%>
@@ -158,7 +158,7 @@
                         <label for="specific-tools">Use Shift or Ctrl/Cmd to select multiple tools</label>
                         <select id="specific-tools" name="specific_tools[]" class="use-select2" multiple size="8" >
                             <% all_tools.each do |tool| %>
-                                <% if !tool.INOP %>
+                                <% if SS_ID == 8 || !tool.INOP %>
                                     <% if event.id.nil? %>
                                         <option <%= 'selected="selected"' if !preset_event.nil? and preset_event.get_resource_ids.include?(tool.id)  %> value="<%=tool.id%>"><%= "#{tool.category_name} - #{tool.name} - #{tool.model}" %></option>
                                     <% else%>
