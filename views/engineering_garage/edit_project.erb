@@ -1,0 +1,65 @@
+<h1 class="dcf-txt-h3" id="Edit_Project">Edit Project</h1>
+
+<div class="dcf-grid dcf-col-gap-vw">
+<form id="edit-project-form" action="" method="POST" enctype="multipart/form-data" class="dcf-form dcf-col-100% dcf-col-50%-start@sm">
+    <fieldset>
+        <legend>Project Details</legend>
+
+        <div class="dcf-form-group ">
+            <label for="nuid">Owner NUID <small class="dcf-required">Required</small></label>
+            <input class="dcf-w-100%" type="text" id="nuid" name="nuid" value ="<%= user.user_nuid %>" />
+        </div>
+
+        <div class="dcf-form-group">
+            <label for="title">Title <small class="dcf-required">Required</small></label>
+            <input class="dcf-w-100%" type="text" id="title" name="title" value ="<%= title %>" />
+        </div>
+
+        <div class="dcf-form-group">
+            <label for="description">Description</label>
+            <input class="dcf-w-100%" type="text" id="description" name="description" value ="<%= description %>" />
+        </div>
+
+        <div class="dcf-form-group">
+            <label for="password">Bin ID <small class="dcf-required">Required</small></label>
+            <input class="dcf-w-100%" type="text" id="bin_id" name="bin_id" value ="<%= bin_id %>" />
+        </div>
+        <button class="dcf-mt-3 dcf-btn dcf-btn-primary" type="submit">Update</button>
+    </fieldset>
+</form>
+<form id="edit-teammates-form" class="dcf-form dcf-col-100% dcf-col-50%-end@sm">
+    <fieldset>
+        <legend>Project Teammates</legend>
+
+        <div class="dcf-overflow-x-auto" tabindex="0">
+            <% if teammates.count > 0 %>
+            <table class="dcf-table dcf-table-striped dcf-w-100% dcf-table-responsive dcf-mb-6" aria-describedby="teammate-list-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Date Added</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% teammates.each do | teammate | %>
+                    <% user = User.find_by(id: teammate.teammate_id) %>
+                    <tr>
+                        <td><%= user.full_name %></td>
+                        <td><%= user.email %></td>
+                        <td><%= teammate.created_on.strftime('%m/%d/%Y') %></td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+            <% else %>
+                <p>No teammates found.</p>
+            <% end %>
+        </div>
+        <div>
+            <a href="/checkout/project/<%= project_id %>/edit/teammates" class="dcf-mt-1 dcf-btn dcf-btn-primary">Edit Teammates</a>
+        </div>
+    </fieldset>
+</form>
+</div>
+      

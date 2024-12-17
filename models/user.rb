@@ -427,7 +427,7 @@ class User < ActiveRecord::Base
 
   def increment_nuid_retrival_failures()
     if self.user_nuid != nil
-      self.user_nuid = Integer(self.user_nuid)  -  1
+      self.user_nuid = self.user_nuid.to_i  -  1
     else
       self.user_nuid = -1
     end

@@ -149,9 +149,17 @@ post '/events/:event_id/sign_up/?' do
 		@event = event
 
 		if @user.email && !@user.email.empty?
-			template_path = "#{ROOT}/views/innovationstudio/email_templates/event_signup_email.erb"
 			if SS_ID == 8
-				template_path = "#{ROOT}/views/engineering_garage/email_templates/event_signup_email.erb"
+				if event.start_time != nil
+					template_path = "#{ROOT}/views/engineering_garage/email_templates/event_signup_email.erb"
+					success_message = "Thanks for signing up! Don't forget, #{event.title} is #{event.start_time.in_time_zone.strftime('%A, %B %d at %l:%M %P')}."
+				else
+					template_path = "#{ROOT}/views/engineering_garage/email_templates/timeless_event_signup_email.erb"
+					success_message = "Thanks for signing up! You may attend during any regular operating hours."
+				end
+			else
+				template_path = "#{ROOT}/views/innovationstudio/email_templates/event_signup_email.erb"
+				success_message = "Thanks for signing up! Don't forget, #{event.title} is #{event.start_time.in_time_zone.strftime('%A, %B %d at %l:%M %P')}."
 			end
 			template = File.read(template_path)
 			body = ERB.new(template).result(binding)
@@ -160,7 +168,7 @@ post '/events/:event_id/sign_up/?' do
 		end
 
 		# flash a message that this works
-		flash(:success, "You're signed up!", "Thanks for signing up! Don't forget, #{event.title} is #{event.start_time.in_time_zone.strftime('%A, %B %d at %l:%M %P')}.")
+		flash(:success, "You're signed up!", success_message)
 		redirect back
 	else
 		# flash a message that this works

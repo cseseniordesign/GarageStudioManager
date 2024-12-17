@@ -10,7 +10,13 @@
             <% end %>
         </ul>
         </li>
-        <li><a href="/tools/">Reserve Equipment</a></li>
+        <li><a href="/tools/">Reserve Equipment</a>
+        <% if SS_ID == 8 && @user.id == -1 %>
+            <ul>
+                <li><a href="/checkout/">Checkout</a></li>
+            </ul>
+        <% end %>
+        </li>
         <% if SS_ID == 1 %>
             <li><a href="/training-documents">Training Documents</a>
                 <ul>
@@ -39,12 +45,12 @@
         <% end %>
     <% end %>
 
-<%
+<% 
 =begin These items are linked from the main website
-    <li><a href="/tours/" title="Tours">Tours</a>
-    </li>
-    <li><a href="/new_members/" title="New Member Orientation">New Members</a>
-    </li>
+             <li><a href="/tours/" title="Tours">Tours</a>
+             </li>
+             <li><a href="/new_members/" title="New Member Orientation">New Members</a>
+             </li>
 =end %>
     <% unless @user.nil? || !@user.is_admin? %>
         <li><a href="/admin/">Admin</a>

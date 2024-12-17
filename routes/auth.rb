@@ -172,7 +172,7 @@ post '/check_in_login/?' do
   session[:user_id] = user.id
   # checks whether the NU user has a nuid or whether is has tried and failed less than 20 times before
   if user.university_status != 'Non-NU Student (All Other Institutions)' && SS_ID == 8
-    if user.user_nuid == nil || (Integer(user.user_nuid) > -20 && Integer(user.user_nuid) < 0)
+    if user.user_nuid == nil || (user.user_nuid.to_i > -20 && user.user_nuid.to_i < 0)
       nuid_hash = user.fetch_nuid()
       if nuid_hash[:status]
         user.set_nuid(nuid_hash[:nuid])
@@ -225,7 +225,7 @@ post '/login/?' do
 
   # checks whether the NU user has a nuid or whether is has tried and failed less than 20 times before
   if user.university_status != 'Non-NU Student (All Other Institutions)' && SS_ID == 8
-    if user.user_nuid == nil || (Integer(user.user_nuid) > -20 && Integer(user.user_nuid) < 0)
+    if user.user_nuid == nil || (user.user_nuid.to_i > -20 && user.user_nuid.to_i < 0)
       nuid_hash = user.fetch_nuid()
       if nuid_hash[:status]
         user.set_nuid(nuid_hash[:nuid])

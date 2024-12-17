@@ -1,0 +1,67 @@
+<h1 class="dcf-txt-h3" id="Edit_Teammates">Edit Teammates</h1>
+<div class="dcf-grid-thirds dcf-col-gap-vw">
+<div>
+    <a href="/checkout/project/<%= project_id %>/edit" class="dcf-btn dcf-btn-secondary dcf-25% dcf-w-max-2xs" type="button">Return to Edit Project</a>
+</div>
+<div></div>
+    <form class="dcf-form dcf-w-100%" id="find-nuid" action="/checkout/project/<%= project_id %>/edit/teammates/?" method="POST" enctype="application/x-www-form-urlencoded">
+        <label for="nuid-input">Add a Teammate by NUID</label>
+        <div class="dcf-input-group">
+            <input id="nuid-input" name="nuid">
+            <button class="dcf-btn dcf-btn-primary" type="submit">Add Teammate</button>
+        </div>
+    </form>
+</div>
+<fieldset class="dcf-mt-4">
+    <legend>Project Teammates</legend>
+    <div class="dcf-overflow-x-auto" tabindex="0">
+        <% if teammates.count > 0 %>
+        <table class="dcf-table dcf-table-striped dcf-w-100% dcf-table-responsive dcf-mb-6" aria-describedby="teammate-list-table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date Added</th>
+                    <th scope="col">Teammate Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% teammates.each do | teammate | %>
+                <% user = User.find_by(id: teammate.teammate_id) %>
+                <tr>
+                    <td><%= user.full_name %></td>
+                    <td><%= user.email %></td>
+                    <td><%= teammate.created_on.strftime('%m/%d/%Y') %></td>
+                    <td class="dcf-d-flex dcf-flex-row-rev dcf-flex-shrink-1 dcf-gap-2">
+                        <button class="dcf-btn-toggle-modal dcf-btn dcf-btn-primary" data-toggles-modal="remove-<%= teammate[:id] %>" type="button">Remove</button>
+                        <div class="dcf-modal" id="remove-<%= teammate[:id] %>" hidden>
+                            <div class="dcf-modal-wrapper">
+                                <div class="dcf-modal-header">
+                                    <h2>Remove Teammate</h2>
+                                    <button class="dcf-btn-close-modal">Close</button>
+                                </div>
+                                <div class="dcf-modal-content">
+                                    <form class="dcf-form dcf-grid" action="/checkout/project/<%= project_id %>/edit/teammates/<%= teammate.id %>/remove" method="POST" enctype="application/x-www-form-urlencoded">
+                                        <div class="dcf-col-50%-start">
+                                            <p id="teammate_name"><strong>Name: </strong><%= user.full_name %></p>
+                                            <p id="teammate_nuid"><strong>NUID: </strong><%= user.user_nuid %></p>
+                                            <div class="dcf-form-controls-inline dcf-gap-2">
+                                                <button class="dcf-btn dcf-btn-primary" type="submit">Remove</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <% end %>
+            </tbody>
+        </table>
+        <% else %>
+            <p>No teammates found.</p>
+        <% end %>
+    </div>    
+</fieldset>
+
+

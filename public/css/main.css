@@ -349,6 +349,14 @@ select[multiple=multiple] {
 .date-time-select > * {
   vertical-align: middle;
 }
+
+.or-label {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+  font-weight: bold;
+}
+
 .expired {
   color: var(--link);
   font-weight: bold;

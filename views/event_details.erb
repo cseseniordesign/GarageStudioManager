@@ -35,12 +35,18 @@
 	    </h3>
 	</div>
 	<div>
-		<span class="date-wrapper eventicon-calendar-empty">
-	    	<time class="dtstart"><%= event.start_time.in_time_zone.strftime('%b %d, %Y') %></time>
-		</span>
+		<% if event.start_time != nil %>
+			<span class="date-wrapper eventicon-calendar-empty">
+				<time class="dtstart"><%= event.start_time.in_time_zone.strftime('%b %d, %Y') %></time>
+			</span>
+			<span class="time-wrapper eventicon-clock">
+				<%= event.start_time.in_time_zone.strftime('%l:%M %P') %>–<%= event.end_time.in_time_zone.strftime('%l:%M %P') %>
+			</span>
+		<% else %>
 		<span class="time-wrapper eventicon-clock">
-	    	<%= event.start_time.in_time_zone.strftime('%l:%M %P') %>–<%= event.end_time.in_time_zone.strftime('%l:%M %P') %>
-	    </span>
+			<label>Regular operating hours</label>
+		</span>
+		<% end %>
 		<div class="location eventicon-location">
 			<%= event.location.name %>
 		</div>

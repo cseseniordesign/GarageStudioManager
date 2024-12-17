@@ -1,0 +1,14 @@
+<h1 class="dcf-txt-h3" id="Checkout">Warehouse Check In / Check Out</h1>
+<form class="dcf-form dcf-w-25%" id="find-nuid" action="/checkout/user/" method="GET" enctype="application/x-www-form-urlencoded">
+	<label for="nuid-input">Scan NUID</label>
+	<div class="dcf-input-group">
+		<input id="nuid-input" autocomplete="off" name="nuid">
+		<button class="dcf-btn dcf-btn-primary" type="submit">Submit</button>
+	</div>
+</form>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('nuid-input').focus();
+  });
+</script>

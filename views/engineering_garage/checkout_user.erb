@@ -1,0 +1,247 @@
+<h1 class="dcf-txt-h3" id="Checkout">Warehouse Check In / Check Out</h1>
+<a href="/checkout" class="dcf-btn dcf-btn-secondary" type="button">Return to Scan Page</a>
+<fieldset class="dcf-h-min-100vh dcf-mt-4">
+  <legend>User Details</legend>
+  <div class="dcf-d-flex dcf-flex-col dcf-gap-2">
+		<div class="dcf-d-flex dcf-flex-row dcf-jc-between dcf-ai-baseline dcf-w-100% dcf-gap-2">
+			<div class="dcf-d-inline-flex dcf-flex-row dcf-ai-baseline dcf-gap-4">
+				<h3><%= user[:username] %></h3>
+			</div>
+			<div class="dcf-d-flex dcf-gap-2">
+<%#
+				<button class="dcf-btn-toggle-modal dcf-btn dcf-btn-primary" data-toggles-modal="checkout-modal-btn" type="button">Check Out Tool</button>
+					<div class="dcf-modal" id="checkout-modal-btn" hidden>
+						<div class="dcf-modal-wrapper">
+							<div class="dcf-modal-header">
+								<h2>Check Out Tool</h2>
+								<button class="dcf-btn-close-modal">Close</button>
+							</div>
+							<div class="dcf-modal-content">
+								Hey, I am a modal!
+							</div>
+						</div>
+					</div>
+%>
+				<a href="/checkout/project/<%= nuid %>/create" class="dcf-btn dcf-btn-primary">Create New Project</a>
+			</div>
+		</div>
+    <div class="dcf-tabs dcf-tabs-responsive">
+			<ul>
+				<li><a href="#user-projects-panel">User Projects</a></li>
+				<%#
+				<li><a href="#user-tools-panel">Tool Check In</a></li>
+				%>
+  		</ul>
+      <div id="user-projects-panel">
+        <% if defined?(projects) && projects.count > 0 %>
+					<h4>User Projects</h4>
+					<form class="dcf-form dcf-w-25%" id="filter-input" action="/checkout/user/" method="GET" enctype="application/x-www-form-urlencoded">
+						<label for="filter-input">Filter Projects</label>
+						<div class="dcf-input-group">
+							<input type="hidden" name="nuid" value="<%= nuid %>">
+							<input id="project-input" name="search_id">
+							<button class="dcf-btn dcf-btn-primary" type="submit">Submit</button>
+						</div>
+					</form>
+          <table class="dcf-table dcf-w-100% dcf-table-striped dcf-table-responsive dcf-mt-6 dcf-mb-6" aria-describedby="project-list-table">
+            <thead>
+              <tr>
+                <th scope="col">Location</th>
+                <th scope="col">Project Name</th>
+                <th scope="col">Last Accessed</th>
+                <th scope="col" class="dcf-txt-right">Project Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% projects.each do |project| %>
+                <tr>
+                  <td><%= project[:bin_id] %></td>
+                  <td><%= project[:title] %></td>
+                  <td>
+									<% if project[:last_checked_out] != nil && project[:last_checked_in] != nil %>
+										<% if project[:last_checked_out] >= project[:last_checked_in] %>
+											<%= project[:last_checked_out].in_time_zone.strftime("%b %-d, %Y %-I:%M%P") %>
+										<% else %>
+											<%= project[:last_checked_in].in_time_zone.strftime("%b %-d, %Y %-I:%M%P") %>
+										<% end %>
+									<% else %>
+										<% if project[:last_checked_out] != nil %>
+											<%= project[:last_checked_out].in_time_zone.strftime("%b %-d, %Y %-I:%M%P") %>
+										<% end %>
+										<% if project[:last_checked_in] != nil %>
+											<%= project[:last_checked_in].in_time_zone.strftime("%b %-d, %Y %-I:%M%P") %>
+										<% end %>
+									<% end %>
+
+									</td>
+                  <td class="dcf-d-flex dcf-flex-row-rev dcf-flex-shrink-1 dcf-gap-2">
+										<button class="dcf-btn-toggle-modal dcf-btn dcf-btn-primary" data-toggles-modal="delete-<%= project[:id] %>" type="button">Delete</button>
+										<div class="dcf-modal" id="delete-<%= project[:id] %>" hidden>
+											<div class="dcf-modal-wrapper">
+												<div class="dcf-modal-header">
+													<h2>Delete Project</h2>
+													<button class="dcf-btn-close-modal">Close</button>
+												</div>
+												<div class="dcf-modal-content">
+													<form class="dcf-form dcf-grid" action="/checkout/project_delete/?nuid=<%= nuid %>&bin_id=<%= project[:bin_id] %>" method="POST" enctype="application/x-www-form-urlencoded">
+														<div class="dcf-col-50%-start">
+															<p id="project_name"><strong>Name:</strong> <%= project[:title] %></p>
+															<p id="bin_id"><strong>Location:</strong> <%= project[:bin_id] %></p>
+															<p><strong>Description:</strong> <%= project[:description] %></p>
+															<div class="dcf-form-controls-inline dcf-gap-2">
+																<button class="dcf-btn dcf-btn-primary" type="submit">Delete</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									  <% if project[:last_checked_out] == nil || project[:last_checked_out] <= project[:last_checked_in] %>
+											<button class="dcf-btn-toggle-modal dcf-btn dcf-btn-primary" data-toggles-modal="checkout-<%= project[:id] %>" type="button">Check Out</button>
+											<div class="dcf-modal" id="checkout-<%= project[:id] %>" hidden>
+												<div class="dcf-modal-wrapper">
+													<div class="dcf-modal-header">
+														<h2>Check Out Project</h2>
+														<button class="dcf-btn-close-modal">Close</button>
+													</div>
+													<div class="dcf-modal-content">
+														<form class="dcf-form dcf-grid" action="/checkout/project_checkout/?nuid=<%= nuid %>&bin_id=<%= project[:bin_id] %>" method="POST" enctype="application/x-www-form-urlencoded">
+															<div class="dcf-col-50%-start">
+																<p id="project_name"><strong>Name:</strong> <%= project[:title] %></p>
+																<p id="bin_id"><strong>Location:</strong> <%= project[:bin_id] %></p>
+																<p><strong>Description:</strong> <%= project[:description] %></p>
+																<div class="dcf-form-controls-inline dcf-gap-2">
+																	<button class="dcf-btn dcf-btn-primary" type="submit">Check Out</button>
+																</div>
+															</div>
+															<div class="dcf-col-50%-end dcf-h-fixed-100% dcf-overflow-y-auto">
+																<fieldset>
+																<p><strong>Teammates:</strong></p>
+																<% teammates = project.find_teammates %>
+																<% if teammates.present? %>
+																<ul>
+																	<% teammates.each do |teammate| %>
+																		<li>
+																			<%= teammate.find_username.username %>
+																			<%= " (owner)" if teammate.is_owner %>
+																		</li>
+																	<% end %>
+																</ul>
+																<% else %>
+																	<p>No teammates found.</p>
+																<% end %>
+																</fieldset>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										<% else %>
+											<button class="dcf-btn-toggle-modal dcf-btn dcf-btn-secondary" data-toggles-modal="check_in-<%= project[:id] %>" type="button">Check In</button>
+											<div class="dcf-modal" id="check_in-<%= project[:id] %>" hidden>
+												<div class="dcf-modal-wrapper">
+													<div class="dcf-modal-header">
+														<h2>Check In Project</h2>
+														<button class="dcf-btn-close-modal">Close</button>
+													</div>
+													<div class="dcf-modal-content">
+														<form class="dcf-form dcf-grid" action="/checkout/project_checkin/?nuid=<%= nuid %>&bin_id=<%= project[:bin_id] %>" method="POST" enctype="application/x-www-form-urlencoded">
+															<div class="dcf-col-50%-start">
+																<p id="project_name"><strong>Name:</strong> <%= project[:title] %></p>
+																<p id="bin_id"><strong>Location:</strong> <%= project[:bin_id] %></p>
+																<p><strong>Description:</strong> <%= project[:description] %></p>
+																<div class="dcf-form-controls-inline dcf-gap-2">
+																	<button class="dcf-btn dcf-btn-primary" type="submit">Check In</button>
+																</div>
+															</div>
+															<div class="dcf-col-50%-end dcf-h-fixed-100% dcf-overflow-y-auto">
+																<fieldset>
+																<p><strong>Teammates:</strong></p>
+																<% teammates = project.find_teammates %>
+																<% if teammates.present? %>
+																<ul>
+																	<% teammates.each do |teammate| %>
+																		<li>
+																			<%= teammate.find_username.username %>
+																			<%= " (owner)" if teammate.is_owner %>
+																		</li>
+																	<% end %>
+																</ul>
+																<% else %>
+																	<p>No teammates found.</p>
+																<% end %>
+															</fieldset>
+															</div>
+														</form>
+													</div>
+												</div>
+											</div>
+										<% end %>
+										<a href="/checkout/project/<%= project[:id] %>/edit" class="dcf-btn dcf-btn-primary">Edit</a>
+										<div class="dcf-modal" id="edit-<%= project[:id] %>" hidden>
+											<div class="dcf-modal-wrapper">
+												<div class="dcf-modal-header">
+													<h2>Edit <%= project[:title] %></h2>
+													<button class="dcf-btn-close-modal">Close</button>
+												</div>
+												<div class="dcf-modal-content">
+													<%= project[:description] %>
+												</div>
+											</div>
+										</div>
+                    
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>No projects found.</p>
+        <% end %>
+      </div>
+      <div id="user-tools-panel">
+				<h4>Checked Out Tools</h4>
+        <% if checked_out.count > 0 %>
+          <table class="dcf-table dcf-w-100% dcf-table-striped dcf-table-responsive dcf-mt-6 dcf-mb-6" aria-describedby="project-list-table">
+            <thead>
+              <tr>
+                <th scope="col">Tool Name</th>
+                <th scope="col">Checked Out</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% checked_out.each do |tool| %>
+                <tr>
+                  <td><%= tool[:name] %></td>
+                  <td><%= tool[:checked_out_date] %></td>
+                  <td class="table-actions">
+                    <button class="dcf-btn-toggle-modal dcf-btn dcf-btn-primary" data-toggles-modal="checkin-<%= tool[:id] %>" type="button">Check In</button>
+                    <div class="dcf-modal" id="checkin-<%= tool[:id] %>" hidden>
+                      <div class="dcf-modal-wrapper">
+                        <div class="dcf-modal-header">
+                          <h2>Check In Tool</h2>
+                          <button class="dcf-btn-close-modal">Close</button>
+                        </div>
+                        <div class="dcf-modal-content">
+                          Hello, I am a modal!
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p>Currently no tools checked out.</p>
+        <% end %>
+      </div>
+    </div>
+		<script>
+			window.addEventListener('inlineJSReady', function() {
+				WDN.initializePlugin('tabs');
+			}, false);
+		</script>
+  </div>
+</fieldset>
