@@ -3,8 +3,6 @@
 <h5>Hello, <%= @user.full_name %> (<%= @user.username %>)</h5>
 <% if SS_ID == 1 %>
   <%= erb :'innovationstudio/membership_expiration' %>
-<% elsif SS_ID == 8 %>
-  <%= erb :'engineering_garage/membership_expiration' %>
 <% end %>
 
 

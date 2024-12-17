@@ -1,9 +1,0 @@
-<% if !@user.is_active %>
-    <h4 style="color:#d00000;">Your membership is not active.</h4>
-    <h6>Please visit the Engineering Garage to activate your membership.</h6>
-<% elsif !@user.expiration_date.nil? && @user.expiration_date > Date.today %>
-    <h4 style ="<%= @user.expiration_date > (Time.now + 1.weeks) ? "" : "color:orange;" %>">Your membership will expire on: <%= @user.expiration_date.to_formatted_s(:long_ordinal)[0...-5] %></h4>
-<% else %>
-    <h4 style="color:#d00000;">Your membership is expired.</h4>
-    <h6>You can still reserve equipment and sign up for trainings. Please visit the Engineering Garage to activate your membership.</h6>
-<% end %>
