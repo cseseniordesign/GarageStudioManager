@@ -32,7 +32,7 @@ describe "Test Checkout Page" do
 	end
 
 	before do
-		@user = User.find_by(user_nuid: "12345678")
+		@user = User.find_by(user_nuid: "11111111")
 		env "rack.session", { :user_id => @user.id }
 	end
 

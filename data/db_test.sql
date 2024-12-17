@@ -3235,7 +3235,7 @@ CREATE TABLE `users` (
   `secondary_emergency_contact_id` int(11) DEFAULT NULL,
 	`user_agreement_expiration_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
+INSERT INTO users(id, username, user_nuid, service_space_id, user_agreement_expiration_date) VALUES (-1, 'checkout', '11111111', 8, '2040-11-06 00:00:00');
 INSERT INTO users(id, username, user_nuid, service_space_id, user_agreement_expiration_date) VALUES (1, 'mhawk2', '12345678', 8, '2040-11-06 00:00:00');
 INSERT INTO users(id, username, user_nuid, service_space_id, user_agreement_expiration_date) VALUES (2, 'aketchum2', '87654321', 8, '2040-11-06 00:00:00');
 
