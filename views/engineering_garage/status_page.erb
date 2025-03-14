@@ -1,29 +1,44 @@
-<h1 class="dcf-txt-h1 dcf-txt-center" id="Title">Kiewit Garage Status</h1>
-
 <div class="dcf-grid dcf-col-gap-vw dcf-flex-wrap">
-    <div class="dcf-col-50%">
-        <div class="dcf-col-100% dcf-col-67%-start@sm" style="margin-top:15px">
-            <table class="dcf-table dcf-table-bordered dcf-m-4" aria-describedby="num_down_machines">
+    <div class="dcf-col-50% dcf-ac-center">
+    <h1 class="dcf-txt-h1 dcf-txt-center" id="Title">Kiewit Garage Status</h1>
+    </div>
+
+    <div class="dcf-col-50% dcf-flex dcf-jc-center">
+
+        <div class="dcf-col-100% dcf-w-100%" style="margin-top:15px">
+            <table class="dcf-table dcf-table-bordered dcf-m-4 dcf-w-100%" aria-describedby="num_down_machines">
                 <thead>
                     <tr>
-                        <th scope="col"> Number of Locked Out / Tag Out Machines </th>
+                        <th scope="col">Event</th>
+                        <th scope="col">Potentials</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr class="dcf-txt-center">
-                        <td>GET NUMBER HERE</td>
+                        <td>New User Orientation - Fall 2024 & Spring 2025</td>
+                        <td>20</td>
+                    </tr>
+                    <tr class="dcf-txt-center">
+                        <td>3D Printer Bambu X1E</td>
+                        <td>5</td>
+                    </tr>
+                    <tr class="dcf-txt-center">
+                        <td>3D Printer - Formlabs Form 4</td>
+                        <td>2</td>
+                    </tr>
+                    <tr class="dcf-txt-center">
+                        <td>Fabrication Laser - Epilog Fusion Pro 32 100-50</td>
+                        <td>12</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-
-    <div class="dcf-col-50%">
-        <div class="dcf-col-100% dcf-col-67%-start@sm" style="margin-top:15px">
-            <table class="dcf-table dcf-table-bordered dcf-m-4" aria-describedby="num_down_machines">
+        
+        <div class="dcf-col-100% dcf-w-100%" style="margin-top:15px">
+            <table class="dcf-table dcf-table-bordered dcf-m-4 dcf-w-100%" aria-describedby="num_down_machines">
                 <thead>
                     <tr>
-                        <th scope="col"> Number of Locked Out / Tag Out Machines </th>
+                        <th class="dcf-txt-center">Number of Locked Out / Tag Out Machines</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,24 +51,34 @@
     </div>
 </div>
 
-<table class="dcf-table dcf-table-bordered dcf-m-4" aria-describedby="Down-Machines">
-    <thead>
-        <tr>
-            <th scope="col">Category</th>
-            <th scope="col">Tool</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% inop_tools.each do |tool| %>
-            <tr>
-                <td>
-                    <%= tool.get_category_name %>
-                </td>
-                <td>
-                    <%= tool.tool_name %>
-                </td>
-            </tr>
-        <% end %>   
-    </tbody>
-</table>
+<div class="dcf-box dcf-border-all dcf-p-6 dcf-mb-4">
+    <h2 class="dcf-txt-center">A beautiful histogram here</h2>
+    <p>
+        This box will be changed to a histogram at a later time for now
+    </p>
+    
+    <img class="dcf-obj-fit-contain" src="/images/Eli.png" alt="eli :D"> 
+
+</div>
+
+<h1 class="dcf-txt-h3 dcf-txt-center" id="Title">Locked Out / Tag Out Machines</h1>
+<div class="dcf-grid dcf-col-gap-vw dcf-flex-wrap">
+    <div class="dcf-col-67%-center dcf-felx-wrap">
+        <table class="dcf-table dcf-table-bordered dcf-m-4 dcf-w-100%" aria-describedby="Down-Machines">
+            <thead>
+                <tr>
+                    <th>Laser Engraver</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
+                        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 		
