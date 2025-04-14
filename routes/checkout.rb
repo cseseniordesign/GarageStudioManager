@@ -190,6 +190,32 @@ post "/checkout/project_checkin/?" do
 	end
 end
 
+post "/checkout/log_project/?" do
+	bin_id = params[:bin_id]
+	nuid = params[:nuid]
+
+	if bin_id != nil && nuid != nil
+		project = Project.find_by(bin_id: bin_id)
+		user = User.find_by(user_nuid: nuid)
+		if project != nil
+			project_log = ProjectLog.new
+      is_checking_in = false
+      if project.last_checked_out != nil
+        is_checking_in = project.last_checked_in < project.last_checked_out
+      end
+			project_log.set_data(user: user, project: project, is_checking_in: is_checking_in)
+			flash :success, 'Success', 'Project successfully logged'
+			redirect "/checkout/?"
+		else
+			flash :error, 'Error', 'Project not found'
+			redirect "/checkout/"
+		end
+	else
+		flash :error, 'Error', 'Bin ID not found'
+		redirect "/checkout/"
+	end
+end
+
 # Delete Project
 post "/checkout/project_delete/?" do
 	bin_id = params[:bin_id]
